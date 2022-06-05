@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block title %} AddCategory {%endblock%}
+
+
+{%block content%}
+     
+<h1>AddCategory</h1>
+  
+{% if user.is_superuser %}
+
+<div class="form-group">      
+    <form method = "POST">
+              
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-light">New Category!</button>
+</div>
+
+{% else %}
+    <p>Hello, visitor. You cant AddCategory Sorry :)</p>
+{% endif %}
+
+
+
+
+{%endblock%}

@@ -1,13 +1,15 @@
 {%extends 'base.html'%}
+{% load static %}
 
 {% block title %} MakePost {%endblock%}
 
 
 {%block content%}
      
-   
+<h1>Add Post</h1>
+  
+{% if user.is_superuser %}
 
-<h1>Add Post<h1>
 <div class="form-group">      
     <form method = "POST">
               
@@ -15,6 +17,12 @@
             {{form.as_p}}
             <button class="btn btn-light">Post it!</button>
 </div>
+
+{% else %}
+    <p>Hello, visitor. You cant Post Sorry :)</p>
+{% endif %}
+
+
 
 
 {%endblock%}

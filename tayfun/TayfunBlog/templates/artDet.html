@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{% load static %}
 {% block title %} {{post.title_tag}} By: {{post.author.first_name}} {{post.author.last_name}} {%endblock%}
 {%block content%}
      
@@ -10,10 +11,11 @@
 
 <h1>{{post.title}}</h1>
 
-<small>By: {{post.author.first_name}}   {{post.author.last_name}}</small><br>
+<small>By: {{post.author.first_name}}   {{post.author.last_name}}<br>{{post.postDate}}</small><br>
+
 <hr>
 <br/>
-{{post.body}}
+{{post.body|safe}}
 <br>
 
 <a href="{%url 'home' %}" class = "btn btn-warning" >Back</a>
