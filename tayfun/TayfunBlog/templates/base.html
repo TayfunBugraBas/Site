@@ -87,8 +87,9 @@
                 Categories
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                
-               
+                {% for item in cat_menu%}
+                 <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{item}}</a>
+                {%endfor%}
 
 
               </div>
