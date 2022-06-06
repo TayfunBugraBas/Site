@@ -2,7 +2,7 @@
 {% load static %}
 {%block content%}
      
-   
+<div class="container tm-container-2">
 {% if category_posts%}
     <h1>{{categories}} Category</h1>
     
@@ -20,7 +20,7 @@
                 <div class="tm-bg-dark tm-timeline-description">
                     <h3 class="tm-text-yellow tm-font-400"><a href = "{%url 'article-details' post.pk%}">{{post.title}}</a></h3>
                     <p>{{post.author.first_name}}{{post.author.last_name}}<a href = "{%url 'category' post.category|slugify%}">-{{post.category}}</a></p>
-                    <p>{{post.body|slice:200|safe}}</p>
+                    <p>{{post.body|slice:200|safe}}...</p>
                     <a href="{%url 'article-details' post.pk%}" class = "btn btn-warning" >Continue Reading</a>
                     <p class="tm-text-orange float-right mb-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{post.postDate}}</p>
                     {% if user.is_superuser %}
@@ -40,6 +40,7 @@
 
     </div>
 
+</div>
 </div>
 
 {%else%}

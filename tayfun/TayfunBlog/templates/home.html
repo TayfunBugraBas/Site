@@ -2,8 +2,56 @@
 {% load static %}
 {%block content%}
 
+<style>
+    .banner-area{
+        width: 100%;
+        height: 100vh;
+        background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(static/img/vcvv-min.jpg) ;
+        background-size: cover;
 
 
+
+    }
+    .content-area{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .content{
+        text-align: center;
+
+
+    }
+    .content h1{
+        font-size: 80px;
+
+    }
+
+
+
+</style>
+
+
+<div class="banner-area">
+    <div class="content-area">
+        <div class="content">
+            <h1> Blog Sayfama Hoşgeldiniz!</h1>
+            <p>Burada araştırdığım, üzerinde çalıştığım projeler gibi şeyleri sizlere aktarmaya çalışıyor olacağım</p>
+            <a href="#a" class = "btn btn-warning" > Okumaya Başlayın</a>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="container tm-container-2"id="a">
 
 <div class="row">
                 <div class="col-lg-12">
@@ -12,12 +60,12 @@
             </div>
 
 
-            <div class="row tm-section-mb">
+            <div class="row tm-section-mb" >
               <div class="col-lg-12">
                 {%for post in object_list%}
                 <div class=" tm-timeline-item">
                   <div class="tm-timeline-item-inner">
-                      <img src="{% static 'img/blog-10.png'%}" alt="Image" class="rounded-circle tm-img-timeline">
+                      <img src="{% static 'img/prtr.png'%}" alt="Image" class="rounded-circle tm-img-timeline">
                       <div class="tm-timeline-connector">
                           <p class="mb-0">&nbsp;</p>
                       </div>
@@ -25,11 +73,13 @@
                           <div class="tm-bg-dark tm-timeline-description">
                               <h3 class="tm-text-yellow tm-font-400"><a href = "{%url 'article-details' post.pk%}">{{post.title}}</a></h3>
                               <p>{{post.author.first_name}}{{post.author.last_name}}<a href = "{%url 'category' post.category|slugify%}">-{{post.category}}</a></p>
-                              <p>{{post.body|slice:200|safe}}</p>
+                              <p>{{post.snippet}}...</p>
                               <a href="{%url 'article-details' post.pk%}" class = "btn btn-warning" >Continue Reading</a>
                               <p class="tm-text-orange float-right mb-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{post.postDate}}</p>
                               {% if user.is_superuser %}
+                              {%if user.id == post.author.id%}
                               <p class="tm-text-green float-right mb-0"><small> <a href="{%url 'update_post' post.pk%}" style="font-size:20px ;">(Edit)</a></small> <small><a href="{%url 'delete_post' post.pk%}" style="font-size:20px ;"> (Delete)</a></small></p>
+                              {%endif%}
                               {%else%}
 
                               {%endif%}
@@ -49,6 +99,6 @@
             </div>
 
 
-
+        </div>
 
 {%endblock%}

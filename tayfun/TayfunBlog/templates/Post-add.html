@@ -6,22 +6,33 @@
 
 {%block content%}
      
-<h1>Add Post</h1>
+
   
 {% if user.is_superuser %}
+<div class="container">
+    <h1>Add Post</h1>
 
-<div class="form-group">      
-    <form method = "POST">
-              
-            {% csrf_token %}
-            {{form.as_p}}
-            <button class="btn btn-light">Post it!</button>
+    <div class="form-group">      
+        <form method = "POST", enctype = "multipart/form-data">
+                
+                {% csrf_token %}
+                {{form.media}}
+                {{form.as_p}}
+                <button class="btn btn-light">Post it!</button>
+    </div>
+
+    <script>
+        var name ="{{user.username}}";
+        document.getElementById("usr").value = name;
+        
+    
+
+    </script>
+
+    {% else %}
+        <p>Hello, visitor. You cant Post Sorry :)</p>
+    {% endif %}
 </div>
-
-{% else %}
-    <p>Hello, visitor. You cant Post Sorry :)</p>
-{% endif %}
-
 
 
 

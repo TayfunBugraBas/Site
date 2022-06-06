@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block title %} MakePostComment {%endblock%}
+
+
+{%block content%}
+     
+
+  
+{% if user.is_authenticated %}
+<div class="container">
+    <h1>Add PostComment</h1>
+
+    <div class="form-group">      
+        <form method = "POST">
+                
+                {% csrf_token %}
+                {{form.media}}
+                {{form.as_p}}
+                <button class="btn btn-light">Comment it!</button>
+    </div>
+
+    
+
+  
+        
+    {% endif %}
+</div>
+
+
+
+{%endblock%}

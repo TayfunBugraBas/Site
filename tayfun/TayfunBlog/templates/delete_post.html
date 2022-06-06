@@ -5,6 +5,7 @@
 
 {%block content%}
 <h1>DeletePost </h1><br><br>    
+<div class="container">
 {% if user.is_superuser %}
 
 <h3>Delete : {{post.title}}</h3>
@@ -23,7 +24,7 @@
     <p>Hello, visitor. You cant Delete Sorry :)</p>
 {% endif %}   
 
-
+</div>
 
 
 

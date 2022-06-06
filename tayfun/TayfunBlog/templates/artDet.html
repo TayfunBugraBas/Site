@@ -1,23 +1,100 @@
 {%extends 'base.html'%}
 {% load static %}
+
+<link href="{% static 'css/styles.css'%}" rel="stylesheet" />
+
 {% block title %} {{post.title_tag}} By: {{post.author.first_name}} {{post.author.last_name}} {%endblock%}
 {%block content%}
      
-   
+<div class="container mt-5">
+<div class="row">
 
+<article>
+    <!-- Post header-->
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1"> <strong>{{post.title_tag}}</strong>   </h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">Posted on  {{post.postDate}}, By: {{post.author.first_name}} {{post.author.last_name}} </div>
+        
+        <!-- Post categories-->
+        <a class="badge bg-secondary text-decoration-none link-light" href="{%url 'category' post.category|slugify%}">{{post.category}}</a>
+
+        
+        
+    </header>
+    <!-- Preview image figure-->
+    {%if post.header_img %}
+    <figure class="mb-4"><img class="img-fluid rounded" src="{{ post.header_img.url }}" alt="" /></figure><br>
+    {%endif%}
+
+    {%if user.is_authenticated%}
+    
+    <form action = "{% url 'like-post' post.pk %}" method="POST">
+        {%csrf_token%}
+        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary btn-sm">Like</button> - {{total_likes}} Likes
+
+    </form>
+    {%else%}
+    <div class="text-muted fst-italic mb-2">beğenmek için giriş yapın - {{total_likes}} Likes</div>
+
+    {%endif%}
+    
+
+    <!-- Post content-->
+    <section class="mb-5">
+        <p class="fs-5 mb-4">{{post.body|safe}}</p>
+        <br>
+        <a href="{%url 'home'%}" class = "btn btn-warning" >Back</a>
+      
+    </section>
+</article>
+<hr>
+
+<section class="mb-5">
+{%if user.is_authenticated%}
+
+
+
+<div class="card bg-dark">
+    <div class="card-body">
+        {%if not post.comments.all%}
+        <p>No Comments Yet</p>
+        <a href="{%url 'MakeComment' post.pk%}" class = "btn btn-warning" >Yorum Ekle</a>
+        
+        {%else%}
+        {%for comment in post.comments.all%}
+        <div class="d-flex mb-4">  
+            <div class="d-flex mt-4">
+            <div class="ms-3">
+                <div class="fw-bold"><strong>-{{comment.name}}-{{comment.date_added}}</strong></div>
+                {{comment.body}}
+
+            </div>
+        </div> 
+        </div> 
+        {%endfor%}
+        <a href="{%url 'MakeComment' post.pk%}" class = "btn btn-warning" >Yorum Ekle</a>
+        {%endif%}
+    </div>
+</div>
+
+{%else%}
+    <div class="text-muted fst-italic mb-2">Yorum yapmak  için giriş yapın </div>
+
+    {%endif%}
+
+</section>    
+
+</div>
+
+</div> 
 
  
 
 
-<h1>{{post.title}}</h1>
 
-<small>By: {{post.author.first_name}}   {{post.author.last_name}}<br>{{post.postDate}}</small><br>
 
-<hr>
-<br/>
-{{post.body|safe}}
-<br>
-
-<a href="{%url 'home' %}" class = "btn btn-warning" >Back</a>
 
 {%endblock%}
+<script src="{% static 'js/scripts.js'%}"></script>
